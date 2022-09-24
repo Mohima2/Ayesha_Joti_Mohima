@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loan</title>
+    <link rel="stylesheet" type="text/css" href="loan.css">
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
+</head>
+<body>
+
+
+    <h1>LOAN SERVICE</h1>
+
+    <form action="loan.php" method="GET">
+
+        <label for="studentid">Student-ID</label>
+                <input
+                  type="int"
+                  class="form-control"
+                  id="studentid"
+                  name="studentid"
+                />
+
+                
+
+
+       
+
+        <label for="priority">Transaction option</label>
+        <select id="priority" name="priority">
+            <option value="1">B-kash</option>
+            <option value="2" selected>T-kash</option>
+            <option value="3">Nagad</option>
+        </select>
+
+        <label for="accountno">Account No.</label>
+                <input
+                  type="int"
+                  class="form-control"
+                  id="accountno"
+                  name="accountno"
+                />
+
+        <!--<label>
+          //  <input type="checkbox" name="terms">
+            //I agree to the terms and conditions of providing loan.
+        </label> -->
+
+        <br>
+
+        <button>Provide loan</button>
+
+    </form>
+
+</body>
+</html>

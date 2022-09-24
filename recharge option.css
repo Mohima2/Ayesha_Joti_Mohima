@@ -1,4 +1,4 @@
-* {
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -8,8 +8,8 @@
   header {
     width: 100%;
     height: 100vh;
-    background-image: linear-gradient(rgba(68, 109, 190, 0.516), rgba(227, 224, 238, 0.15)),
-      url("bup3.jpg");
+    background-image: linear-gradient(rgba(68, 109, 190, 0.516), rgba(0, 0, 0, 0.15)),
+        url("#");
     background-repeat: no-repeat;
     background-size: cover;
   }
@@ -22,7 +22,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-   
+    text-transform: uppercase;
   }
   
   nav .logo {
@@ -45,7 +45,7 @@
   }
   
   nav .menu a:first-child {
-    color: #f9f8fb;
+    color: #00b894;
   }
   
   main {
@@ -56,7 +56,6 @@
     align-items: center;
     text-align: center;
     color: white;
-    text-transform: uppercase
   }
   
   section h3 {
@@ -71,7 +70,7 @@
     font-size: 55px;
     font-weight: 700;
     text-shadow: 2px 1px 5px black;
-    
+    text-transform: uppercase;
   }
   
   section p {
@@ -95,18 +94,18 @@
   
   section .btnone {
     /*background: #00b894;*/
+    background: #4710ac;
+    color: #fff;
+  }
+  
+  .btnone:hover {
     background: #fff;
     color: #000;
   }
   
-  .btnone:hover {
-    background: #7c93cd;
-    color: white;
-  }
-  
   section .btntwo {
     background: #4710ac;
-    color: white;
+    color: #fff;
   }
   
   .btntwo:hover {
@@ -114,29 +113,17 @@
     color: #000;
   }
   
-  .change_content:after {
-    content: "";
-    animation: changetext 10s infinite linear;
-    color: #4710ac;
+
+  .btnthree:hover {
+    background: #fff;
+    color: #000;
   }
   
-  @keyframes changetext {
-    0% {
-      content: "Love";
-    }
-    20% {
-      content: "life";
-    }
-    35% {
-      content: "joy";
-    }
-    60% {
-      content: "blessing";
-    }
-    80% {
-      content: "happiness";
-    }
-    100% {
-      content: "Fuel";
-    }
+  section .btnthree {
+    background: #4710ac;
+    color: #fff;
   }
+  
+ 
+  
+ 

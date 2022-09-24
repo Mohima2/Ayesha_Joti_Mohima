@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>complete responsive food website design tutorial</title>
+
+    <!-- font awesome cdn link  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    >
+
+    <!--custom css file link --> 
+   <link rel="stylesheet" href="style.css">
+   <style>
+    .col-container {
+  background-color: #f2f2f2;
+  padding: 5px 20px 15px 20px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  size: 2 rem;
+}
+.col-25 {
+    margin-bottom: 20px;
+    size :10 rem;
+  }
+
+   </style>
+   
+  </head>
+  <body>
+    <!-- header section starts  -->
+
+    <header>
+      <a href="#" class="logo"><i class="fas fa-utensils"></i>food section</a>
+
+      <div id="menu-bar" class="fas fa-bars"></div>
+
+      <nav class="navbar">
+        <a href="#home">home</a>
+        <a href="#popular" >Menu</a>
+        
+        <a href="#order" >order</a>
+        <input type="text" class="btn" placeholder="Search.." float="right">
+      </nav>
+    </header>
+
+    <!-- header section ends -->
+
+    <!-- home section starts  -->
+
+    <section class="home" id="home">
+      <div class="content">
+        <h3>Choose your delicious meal</h3>
+    
+        <a href="#order" class="btn">order now</a>
+      </div>
+
+     <!--<div class="image">
+        <img src="images/home-img.png" alt="" />
+      </div>-->
+    </section>
+  <!-- popular section starts  -->
+
+    <section class="popular" id="popular">
+      <h1 class="heading">Our <span>Foods</span> </h1>
+
+      <div class="box-container">
+        <div class="box">
+          <span class="price"> $15</span>
+          <span class="code">E1</span>
+          <img src="burger.jpg" alt="" />
+          <h3> burger</h3>
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+          </div>
+          <a href="#order" class="btn">order now</a>
+          <a href="#" class="btn"><span>&#43;</span></a>
+          
+
+        </div>
+        <div class="box">
+          <span class="price"> $25 </span>
+          <span class="code">E2</span>
+          <img src="fried rice.jpg" alt="" />
+          <h3>Fried Rice</h3>
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+          </div>
+          <a href="#order" class="btn">order now</a>
+          <a href="#" class="btn"><span>&#43;</span></a>
+        </div>
+        <div class="box">
+          <span class="price"> $30 </span>
+          <span class="code">E3</span>
+          <img src="friedchicken.jpg" alt="" />
+          <h3>Fried Chicken</h3>
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+          </div>
+          <a href="#order" class="btn">order now</a>
+          <a href="#" class="btn"><span >&#43;</span></a>
+        </div>
+        <div class="box">
+          <span class="price"> $15  </span>
+          <span class="code">E4</span>
+          <img src="Sandwich.jpg" alt="" />
+          <h3>Club Sandwitch</h3>
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+          </div>
+          <a href="#" class="btn">order now</a>
+          <a href="#" class="btn"><span>&#43;</span></a>
+          
+        </div>
+        <div class="box">
+          <span class="price"> $13 </span>
+          <span class="code">E5</span>
+          <img src="coffee.jpg" alt="" />
+          <h3>cold drinks</h3>
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+          </div>
+          <a href="#order" class="btn">order now</a>
+          <a href="#" class="btn"><span>&#43;</span></a>
+        </div>
+        <div class="box">
+          <span class="price"> $10 </span>
+          <span class="code">E6</span>
+          <img src="lemonade.jpg" alt="" />
+          <h3>Lemonade</h3>
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+          </div>
+          <a href="#order" class="btn">order now</a>
+          <a href="#" class="btn"
+        >
+          <span>&#43;</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- popular section ends -->
+
+    
+
+    
+    <div class="col-25">
+    <div class="col-container">
+      <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
+      <p><a href="#">Product 1</a> <span class="price">60 tk.</span></p>
+      <p><a href="#">Product 2</a> <span class="price">40 tk.</span></p>
+      <p><a href="#">Product 3</a> <span class="price">50 tk.</span></p>
+      <p><a href="#">Product 4</a> <span class="price">20 tk.</span></p>
+      <hr>
+      <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
+    </div>
+
+    
+
+    <!-- order section starts  -->
+
+    <section class="order" id="order">
+      <h1 class="heading"><span>order</span> now</h1>
+
+      <div class="row">
+        <div class="image">
+          <img src="burger.jpg" alt="" />
+        </div>
+
+        <form action="">
+          <div class="inputBox">
+            <input type="text" placeholder="name" />
+            <input type="email" placeholder="email" />
+          </div>
+
+          <div class="inputBox">
+            <input type="number" placeholder="number" />
+            <input type="text" placeholder="food name" />
+          </div>
+          <div class="inputBox">
+         
+            <input type="text" placeholder="food code" />
+          </div>
+
+
+          <textarea
+            placeholder="address"
+            name=""
+            id=""
+            cols="30"
+            rows="10"
+          ></textarea>
+
+          <input type="submit" value="order now" class="btn" />
+        </form>
+      </div>
+    </section>
+    <button class="button">
+      <span>Add to cart</span>
+      <div class="cart">
+      <svg viewBox="0 0 36 26">
+      <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
+      <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
+      </svg>
+      </div>
+      </button>
+
+    <!-- order section ends -->
+
+    <!-- footer section  -->
+  <!-- scroll top button  -->
+    <a href="#home" class="fas fa-angle-up" id="scroll-top"></a>
+
+    <!-- loader  -->
+    <div class="loader-container">
+      <img src="images/loader.gif" alt="" />
+    </div>
+
+    <!-- custom js file link  -->
+    <script src="script.js"></script>
+  </body>
+</html
