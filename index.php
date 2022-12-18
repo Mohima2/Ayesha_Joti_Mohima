@@ -1,112 +1,181 @@
+<?php
+//index.php
+
+$connect = new PDO("mysql:host=localhost;dbname=jbl", "root", "");
+function fill_unit_select_box($connect)
+{ 
+ $output = '';
+ $query = "SELECT * FROM employee ORDER BY code ASC";
+ $statement = $connect->prepare($query);
+ $statement->execute();
+ $result = $statement->fetchAll();
+ foreach($result as $row)
+ {
+  $output .= '<option value="'.$row["code"].'">'.$row["code"].'</option>';
+ }
+ return $output;
+}
+
+function fill_unit_select_box2($connect)
+{ 
+ $output2 = '';
+ $query2 = "SELECT * FROM duty_shift ORDER BY id ASC";
+ $statement2 = $connect->prepare($query2);
+ $statement2->execute();
+ $result2 = $statement2->fetchAll();
+ foreach($result2 as $row2)
+ {
+  $output2 .= '<option value="'.$row2["id"].'">'.$row2["id"].'</option>';
+ }
+ return $output2;
+}
+?>
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<nav class="custom_nav topnav d-flex justify-content-between py-2 px-5">
-      <div class="topnav_list d-flex">
-        <a class="active" href="#home" class="mx-3">Home</a>
-        <a href="#about" class="mx-3">About Us</a>
-        <a href="#contact" class="mx-3">Terms and Conditions</a>
-        <a href="more" class="mx-3">More</a>
-      </div>
-      <div class="search-container">
-        <form action="/action_page.php">
-          <input type="text" placeholder="Search.." name="search" />
-          <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
-      </div>
-    </nav>
+<html>
+ <head>
+  <title>Office Duty</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="jquery-ui.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="timepicker.css">
+  <script type="text/javascript" src="timepicker.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ </head>
+ <body>
 
-    <div class="d-flex">
-      <div class="dash d-flex flex-column justify-content-between">
-        <div class="text-center">
-          <h1 class="dashTitile px-2"><i class="fa-solid fa-bars" id="bar"></i> DASHBOARD</h1>
-          <br />
-          <h3 class="Item">Saved Item</h3>
-          <br />
-          <h3 class="link">Important Links</h3>
-        </div>
-        <div class="text-bottom mb-5 ms-5">
-          <p class="botton-content"><i class="fa-solid fa-person-dress-simple"></i><a href="profile.php">Admin Settings</a></p>
-          <p class="botton-content"><i class="fa-solid fa-person-dress-simple"></i><a href="dashboar.php">Back</a></p>
-
-        </div>
-      </div>
-
-      <div class="dashboard flex-grow-1">
-        <div class="dash_headline d-flex bg-black pb-5">
-          <img src="images/logo_bup.jpeg" alt="Bup Logo" />
-          <p>E-Wallet Dashboard</p>
-        </div>
-        <div class="container-fluid px-4">
-        <div class="row at-4">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h1>
-                            View Account Info
-                            <a href="" class="btn-btn-primary float-end">Add User</a>
-                        </h1>
-                    </div>
-
-                    <div class="card-body">
-
-        <div class="table-responsive">
-
-          <table class="table table-bordered table-striped">
-
-                <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Email</th>
-                        <th>Account Info</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach($login_info as $wallet){ ?>
-                                <tr>
-                                    <td><?php echo $wallet->username ?></td>
-                                    <td><?php echo $wallet->email ?></td>
-                                    <td><?php echo $wallet->usertype ?></td>
-
-                                    <td>
-                                        <a href="#" class="btn btn-success">Add</a>
-                                    </td>
-                                    <td>
-                                        <a href="#" class="btn btn-danger">Delete</a>
-                                    </td>
-                                </tr>
-
-                                <?php
-
-                            } ?>
-                             <tr>
-
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<script src="https://kit.fontawesome.com/605c1f1072.js" crossorigin="anonymous"></script>
-<script
-src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-crossorigin="anonymous"></script>
-
-
-</body>
+ <?php include ("header.php"); ?>
+  <br />
+  <div class="container">
+   
+   <h4 align="center">Office Duty</h4>
+   <br />
+   <form method="post" id="insert_form">
+    <div class="table-repsonsive">
+     <span id="error"></span>
+     <table class="table table-bordered" id="item_table">
+      <tr>
+       
+       <th>Employee Name(Code)</th>
+       <th>Designation</th>
+       <th>Shift</th>
+       <th>Date</th>
+       <th>Time From</th>
+       <th>Time To</th>
+      
+      </tr>
+      <tr>
+      <td><select name="empID[]" class="form-control item_unit"><option value="">Select ID</option></select></td>
+        <td><select name="shiftID[]" class="form-control item_unit"><option value="">Select Shift</option></select></td>
+        <td><input type="text" name="Datepicker[]" id="datepicker" class="form-control item_name" /></td>
+      
+        <td><input id="timepkr" style="width: 100px; float: left" class="form-control" placeholder="HH:MM" /><button class="btn btn-primary" type="button"  onclick="showpickers('timepkr',12)" ><i class="fa fa-clock-o"></i></button></td>
+        <div class="timepicker"></div>
+        <td><input id="timepkr" type="button" style="width: 100px; float: left" class="form-control" placeholder="HH:MM" /><button class="btn btn-primary"  onclick="showpickers1('timepkr',12)" ><i class="fa fa-clock-o"></i></button></td>
+        <div class="timepicker1"></div>
+      </tr>
+     </table>
+     <div><button type="button" name="add" class="btn btn-success btn-sm add"><span class="glyphicon glyphicon-plus"></span></button></div>
+     <div align="center">
+      <input type="submit" name="submit" class="btn btn-info" value="Insert" />
+     </div>
+    </div>
+   </form>
+  </div>
+ </body>
 </html>
+
+<script src="jquery-3.6.2.min.js"></script>
+<script src="jquery-ui.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('#datepicker').datepicker({
+            dateFormat: "dd-mm-yy", 
+            changeMonth: true ,
+            changeYear: true
+        });
+    });
+</script>
+
+
+<script>
+$(document).ready(function(){
+ 
+ $(document).on('click', '.add', function(){
+  var html = '';
+  html += '<tr>';
+  
+  html += '<td><select name="empID[]" class="form-control item_unit"><option value="">Select ID</option><?php echo fill_unit_select_box($connect); ?></select></td>';
+  html += '<td><select name="shiftID[]" class="form-control item_unit"><option value="">Select Shift</option><?php echo fill_unit_select_box2($connect); ?></select></td>';
+  html += '<td><input type="text" name="Datepicker[]" id="datepicker" class="form-control item_name" /></td>';
+  html += ' <td><input id="timepkr" name="Time[]" style="width: 100px; float: left" class="form-control" placeholder="HH:MM" /><button class="btn btn-primary"  onclick="showpickers('timepkr',12)" ><i class="fa fa-clock-o"></i></button></td><div class="timepicker"></div>';
+  html += ' <td><input id="timepkr" name="TimeTo[] style="width: 100px; float: left" class="form-control" placeholder="HH:MM" /><button class="btn btn-primary"  onclick="showpickers1('timepkr',12)" ><i class="fa fa-clock-o"></i></button></td><div class="timepicker1"></div>';
+  html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus"></span></button></td></tr>';
+  $('#item_table').append(html);
+ });
+ 
+ $(document).on('click', '.remove', function(){  
+  $(this).closest('tr').remove();
+ });
+ 
+ $('#insert_form').on('submit', function(event){
+  event.preventDefault();
+  var error = '';
+  $('.empID').each(function(){
+   var count = 1;
+   if($(this).val() == '')
+   {
+    error += "<p>Select Employee ID at "+count+" Row</p>";
+    return false;
+   }
+   count = count + 1;
+  });
+  
+  $('.shiftID').each(function(){
+   var count = 1;
+   if($(this).val() == '')
+   {
+    error += "<p>Select Shift ID at "+count+" Row</p>";
+    return false;
+   }
+   count = count + 1;
+  });
+
+  
+  $('.Date').each(function(){
+   var count = 1;
+   if($(this).val() == '')
+   {
+    error += "<p>Select Date at "+count+" Row</p>";
+    return false;
+   }
+   count = count + 1;
+  });
+  var form_data = $(this).serialize();
+  if(error == '')
+  {
+   $.ajax({
+    url:"insert.php",
+    method:"POST",
+    data:form_data,
+    success:function(data)
+    {
+     if(data == 'ok')
+     {
+      $('#item_table').find("tr:gt(0)").remove();
+      $('#error').html('<div class="alert alert-success"> Details Saved</div>');
+     }
+    }
+   });
+  }
+  else
+  {
+   $('#error').html('<div class="alert alert-danger">'+error+'</div>');
+  }
+ });
+ 
+});
+</script>
+
+
