@@ -131,10 +131,11 @@ function fill_unit_select_box3($connect)
                             {
                                 ?>
                                 <tr>
-                                    <td><?= $post['name'] ?></td>
+                                    <td><?= $post['serial'] ?></td>
+                                    <td><?= $post['name(bn)'] ?></td>
                                     <td><?= $post['designation'] ?></td>
-                                    <td><?= $post['emp_ID'] ?></td>
-                                    <td> <?= $post['cell'] ?></td>
+                                    <td><?= $post['empID'] ?></td>
+                                    <td> <?= $post['cell_ID'] ?></td>
                                  
                                     <td>
                                         <a href="#" class="btn btn-success">Update</a>

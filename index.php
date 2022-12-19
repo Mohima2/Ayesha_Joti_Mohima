@@ -1,17 +1,17 @@
 <?php
 //index.php
 
-$connect = new PDO("mysql:host=localhost;dbname=jbl", "root", "");
+$connect = new PDO("mysql:host=localhost;dbname=jbl2", "root", "");
 function fill_unit_select_box($connect)
 { 
  $output = '';
- $query = "SELECT * FROM employee ORDER BY code ASC";
+ $query = "SELECT * FROM employee ORDER BY empID ASC";
  $statement = $connect->prepare($query);
  $statement->execute();
  $result = $statement->fetchAll();
  foreach($result as $row)
  {
-  $output .= '<option value="'.$row["code"].'">'.$row["code"].'</option>';
+  $output .= '<option value="'.$row["name(bn)"].'">'.$row["name(bn)"].'</option>';
  }
  return $output;
 }
@@ -19,16 +19,30 @@ function fill_unit_select_box($connect)
 function fill_unit_select_box2($connect)
 { 
  $output2 = '';
- $query2 = "SELECT * FROM duty_shift ORDER BY id ASC";
+ $query2 = "SELECT * FROM desination ORDER BY id ASC";
  $statement2 = $connect->prepare($query2);
  $statement2->execute();
  $result2 = $statement2->fetchAll();
  foreach($result2 as $row2)
  {
-  $output2 .= '<option value="'.$row2["id"].'">'.$row2["id"].'</option>';
+  $output2 .= '<option value="'.$row2["title"].'">'.$row2["title"].'</option>';
  }
  return $output2;
 }
+
+function fill_unit_select_box3($connect)
+{ 
+    $output3 = '';
+    $query = "SELECT * FROM shift";
+    $statement = $connect->prepare($query);
+    $statement->execute();
+    $result = $statement->fetchAll();
+    foreach($result as $row)
+    {
+     $output3 .= '<option value="'.$row["title"].'">'.$row["title"].'</option>';
+    }
+    return $output3;
+   }
 ?>
 <!DOCTYPE html>
 <html>
@@ -56,7 +70,7 @@ function fill_unit_select_box2($connect)
      <table class="table table-bordered" id="item_table">
       <tr>
        
-       <th>Employee Name(Code)</th>
+       <th>Employee Name</th>
        <th>Designation</th>
        <th>Shift</th>
        <th>Date</th>
@@ -65,15 +79,23 @@ function fill_unit_select_box2($connect)
       
       </tr>
       <tr>
-      <td><select name="empID[]" class="form-control item_unit"><option value="">Select ID</option></select></td>
-        <td><select name="shiftID[]" class="form-control item_unit"><option value="">Select Shift</option></select></td>
+      <td><select name="name[]" class="form-control"><option value="">Select ID</option><?php echo fill_unit_select_box($connect); ?></select></td>
+
+        <td><select name="designation[]" class="form-control"><option value="">Select Designation</option><?php echo fill_unit_select_box2($connect); ?></select></td>
+
+        <td><select name="shift[]" class="form-control"><option value="">Select Shift</option><?php echo fill_unit_select_box3($connect); ?></select></td>
+
         <td><input type="text" name="Datepicker[]" id="datepicker" class="form-control item_name" /></td>
-      
-        <td><input id="timepkr" style="width: 100px; float: left" class="form-control" placeholder="HH:MM" /><button class="btn btn-primary" type="button"  onclick="showpickers('timepkr',12)" ><i class="fa fa-clock-o"></i></button></td>
+
+        <div>
+        <td><input type="text" id="timepkr" name="time" style="width:100px;float:left;" class="form-control" placeholder="HH:MM" /><button type="button" class="btn btn-primary" onclick="showpickers('timepkr',24)" style="width:40px;float:left;"><i class="fa fa-clock-o"></i></td>
+
+
+        <td><input type="text" id="timepkr" name="timeTo"  type="button" style="width: 100px; float: left" class="form-control" placeholder="HH:MM" /><button type="button" class="btn btn-primary" onclick="showpickers('timepkr',24)" style="width:40px;float:left;"><i class="fa fa-clock-o"></i></td>
+        </div>
+
         <div class="timepicker"></div>
-        <td><input id="timepkr" type="button" style="width: 100px; float: left" class="form-control" placeholder="HH:MM" /><button class="btn btn-primary"  onclick="showpickers1('timepkr',12)" ><i class="fa fa-clock-o"></i></button></td>
-        <div class="timepicker1"></div>
-      </tr>
+    </tr>
      </table>
      <div><button type="button" name="add" class="btn btn-success btn-sm add"><span class="glyphicon glyphicon-plus"></span></button></div>
      <div align="center">
@@ -103,17 +125,29 @@ function fill_unit_select_box2($connect)
 $(document).ready(function(){
  
  $(document).on('click', '.add', function(){
+
+    
   var html = '';
   html += '<tr>';
   
-  html += '<td><select name="empID[]" class="form-control item_unit"><option value="">Select ID</option><?php echo fill_unit_select_box($connect); ?></select></td>';
-  html += '<td><select name="shiftID[]" class="form-control item_unit"><option value="">Select Shift</option><?php echo fill_unit_select_box2($connect); ?></select></td>';
-  html += '<td><input type="text" name="Datepicker[]" id="datepicker" class="form-control item_name" /></td>';
-  html += ' <td><input id="timepkr" name="Time[]" style="width: 100px; float: left" class="form-control" placeholder="HH:MM" /><button class="btn btn-primary"  onclick="showpickers('timepkr',12)" ><i class="fa fa-clock-o"></i></button></td><div class="timepicker"></div>';
-  html += ' <td><input id="timepkr" name="TimeTo[] style="width: 100px; float: left" class="form-control" placeholder="HH:MM" /><button class="btn btn-primary"  onclick="showpickers1('timepkr',12)" ><i class="fa fa-clock-o"></i></button></td><div class="timepicker1"></div>';
+  html += '<td><select name="empID[]" class="form-control"><option value="">Select ID</option><?php echo fill_unit_select_box($connect); ?></select></td>';
+  html += '<td><select name="designation[]" class="form-control"><option value="">Select Designation</option><?php echo fill_unit_select_box2($connect); ?></select></td>';
+  html += '<td><select name="shift[]" class="form-control"><option value="">Select Shift</option><?php echo fill_unit_select_box3($connect); ?></select></td>';
+  html += '<td><input type="text" name="Datepicker[]" id="datepicker" class="form-control" /></td>';
+
+  html += '<td> <input type="text" class="timepkr" name="timeTo" style="width:100px;float:left;" class="form-control" placeholder="HH:MM" /><button type="button" class="btn btn-primary"  style="width:40px;float:left;"><i class="fa fa-clock-o"></i></td>';
+  html += ' <td><input type="text" class"timepkr" name="timeTo" style="width:100px;float:left;" class="form-control" placeholder="HH:MM" /><button type="button" class="btn btn-primary"  style="width:40px;float:left;"><i class="fa fa-clock-o"></i></div>';
   html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus"></span></button></td></tr>';
   $('#item_table').append(html);
  });
+
+ $(document).ready(function(){
+        $('#datepicker').datepicker({
+            dateFormat: "dd-mm-yy", 
+            changeMonth: true ,
+            changeYear: true
+        });
+    });
  
  $(document).on('click', '.remove', function(){  
   $(this).closest('tr').remove();
@@ -122,28 +156,20 @@ $(document).ready(function(){
  $('#insert_form').on('submit', function(event){
   event.preventDefault();
   var error = '';
-  $('.empID').each(function(){
-   var count = 1;
-   if($(this).val() == '')
-   {
-    error += "<p>Select Employee ID at "+count+" Row</p>";
-    return false;
-   }
-   count = count + 1;
-  });
+ 
   
-  $('.shiftID').each(function(){
+  $('.shift').each(function(){
    var count = 1;
    if($(this).val() == '')
    {
-    error += "<p>Select Shift ID at "+count+" Row</p>";
+    error += "<p>Select Shift at "+count+" Row</p>";
     return false;
    }
    count = count + 1;
   });
 
   
-  $('.Date').each(function(){
+  $('.Datepicker').each(function(){
    var count = 1;
    if($(this).val() == '')
    {
