@@ -3,9 +3,7 @@
 $conn = mysqli_connect("localhost", "root", "", "jbl2");
 
 ?>
-
 <?php
-
 
 $connect = new PDO("mysql:host=localhost;dbname=jbl2", "root", "");
 function fill_unit_select_box($connect)
@@ -21,7 +19,6 @@ function fill_unit_select_box($connect)
  }
  return $output;
 }
-
 function fill_unit_select_box2($connect)
 { 
  $output2 = '';
@@ -31,21 +28,20 @@ function fill_unit_select_box2($connect)
  $result = $statement->fetchAll();
  foreach($result as $row)
  {
-  $output2 .= '<option value="'.$row["cell_title"].'">'.$row["cell_title"].'</option>';
+  $output2 .= '<option value="'.$row["cell_code"].'">'.$row["cell_code"].'</option>';
  }
  return $output2;
 }
-
 function fill_unit_select_box3($connect)
 { 
- $output2 = '';
- $query = "SELECT * FROM user ORDER BY roleID ASC";
+ $output3 = '';
+ $query = "SELECT * FROM user";
  $statement = $connect->prepare($query);
  $statement->execute();
  $result = $statement->fetchAll();
  foreach($result as $row)
  {
-  $output2 .= '<option value="'.$row["usertype"].'">'.$row["usertype"].'</option>';
+  $output3 .= '<option value="'.$row["usertype"].'">'.$row["usertype"].'</option>';
  }
  return $output3;
 }
@@ -57,7 +53,7 @@ function fill_unit_select_box3($connect)
     <title>Employee</title>
 </head>
 <body>
-<?php include ("header.php"); ?>
+<?php include ("nav.php"); ?>
 
 <div class="container">
    <form method="post" id="insert_form">
@@ -68,17 +64,10 @@ function fill_unit_select_box3($connect)
        <th>Employee ID</th>
        <th>Name</th>
        <th>Designation</th>
-       <th>Cell </th>
+       <th>Cell ID </th>
        <th>User Role</th>
        <th>Password</th>
       </tr>
-      <tr>
-  <td><input type="text" name="emp_ID[]" class="form-control" /></td>
-  <td><input type="text" name="name[]" class="form-control" /></td>
-  <td><select name="designation[]" class="form-control"></select></td>
-  <td><select name="cell[]" class="form-control"><option value="">Select Cell</option></select></td>
-  <td><select name="usertype[]" class="form-control item_unit"></select></td>
-  <td><input type="password" name="password[]" class="form-control" placeholder="123456" /></td></tr>
      </table>
      <div><button type="button" name="add" class="btn btn-success btn-sm add"><span class="glyphicon glyphicon-plus"></span></button></div>
     </div>
@@ -88,7 +77,7 @@ function fill_unit_select_box3($connect)
       <input type="submit" name="submit" class="btn btn-info" value="Add Employee" />
      </div>
 
-
+</br></br>
 <div class="dashboard flex-grow-1">
 
         <div class="container-fluid px-4">
@@ -112,8 +101,7 @@ function fill_unit_select_box3($connect)
                     <tr>
                         <th>ID</th>
                         <th>Employee Name</th>
-                        <th>Designation</th>
-                        <th>Code</th>
+                        <th>Designation</th> 
                         <th>Cell</th>
                         <th>Edit Info</th>
 
@@ -131,12 +119,13 @@ function fill_unit_select_box3($connect)
                             {
                                 ?>
                                 <tr>
-                                    <td><?= $post['serial'] ?></td>
+                                    <td><?= $post['empID'] ?></td>
                                     <td><?= $post['name(bn)'] ?></td>
                                     <td><?= $post['designation'] ?></td>
-                                    <td><?= $post['empID'] ?></td>
-                                    <td> <?= $post['cell_ID'] ?></td>
-                                 
+                                    <td>
+                                    <?= $post['cell_ID'] ?>
+                                    </td>
+                                    
                                     <td>
                                         <a href="#" class="btn btn-success">Update</a>
                                     </td>
@@ -172,19 +161,20 @@ function fill_unit_select_box3($connect)
   <script>
 $(document).ready(function(){
  
- $(document).on('click', '.add', function(){
+  $(document).on('click', '.add', function(){
   var html = '';
   html += '<tr>';
-  html += '<td><input type="text" name="emp_ID[]" class="form-control" /></td>';
-  html += '<td><input type="text" name="name[]" class="form-control" /></td>';
-  html += '<td><select name="designation[]" class="form-control"><?php echo fill_unit_select_box($connect); ?></select></td>';
-  html += '<td><select name="cell[]" class="form-control"><option value="">Select Cell</option><?php echo fill_unit_select_box2($connect); ?></select></td>';
-  html += '<td><select name="usertype[]" class="form-control item_unit"><?php echo fill_unit_select_box3($connect); ?></select></td>';
-  html += '<td><input type="password" name="password[]" class="form-control" placeholder="0123456" /></td></tr>';
-  
+  html += '<td><input type="text" name="empID[]" class="form-control empID" /></td>';
+  html += '<td><input type="text" name="name(bn)[]" class="form-control" /></td>';
+  html += '<td><select name="designation[]" class="form-control designation"><option value="">Select Designation</option><?php echo fill_unit_select_box($connect); ?></select></td>';
+  html += '<td><select name="cell_ID[]" class="form-control cell"><option value="">Cell Code</option><?php echo fill_unit_select_box2($connect); ?></select></td>';
+  html += '<td><select name="usertype[]" class="form-control usertype"><option value="">Select Usertype</option><?php echo fill_unit_select_box3($connect); ?></select></td>';
+  html += '<td><input type="password" name="password[]" class="form-control" placeholder="0123456" /></td>';
+  html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus"></span></button></td></tr>';
+
   $('#item_table').append(html);
  });
- 
+  
  $(document).on('click', '.remove', function(){  
   $(this).closest('tr').remove();
  });
@@ -193,7 +183,7 @@ $(document).ready(function(){
   event.preventDefault();
   var error = '';
 
-  $('.cell').each(function(){
+  $('.cell_ID').each(function(){
    var count = 1;
    if($(this).val() == '')
    {
@@ -208,7 +198,7 @@ $(document).ready(function(){
   if(error == '')
   {
    $.ajax({
-    url:"insertEmp.php",
+    url:"emp_insert.php",
     method:"POST",
     data:form_data,
     success:function(data)
