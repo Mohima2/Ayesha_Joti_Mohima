@@ -145,8 +145,7 @@ function fill_unit_select_box3($connect)
                     <?php 
                      }
                     ?>
-                    <tr>
-                    </tr>
+                  
                 </tbody>
             </table>
         </div>
