@@ -1,27 +1,26 @@
 <?php
-//insert.php;
 
-if(isset($_POST["empID"]))
+if(isset($_POST["emp_ID"]))
 {
  $connect = new PDO("mysql:host=localhost;dbname=project", "root", "");
  $serial = uniqid();
- for($count = 0; $count < count($_POST["empID"]); $count++)
+ for($count = 0; $count < count($_POST["emp_ID"]); $count++)
  {  
   $query = "INSERT INTO employee 
-  (order_id, empID, name(bn), name(en), designation, cell_ID, usertype, password) 
-  VALUES (:order_id, :empID, :name(bn), :name(en), :designation, :cell_ID, :usertype, :password)
+  (order_id, emp_ID, name_bn, name_en, designation, cell_ID, usertype, pwd) 
+  VALUES (:order_id, :emp_ID, :name_bn, :name_en, :designation, :cell_ID, :usertype, :pwd)
   ";
   $statement = $connect->prepare($query);
   $statement->execute(
    array(
     ':serial'   => $serial,
-    ':empID	'  => $_POST["empID"][$count], 
-    ':name(bn)' => $_POST["name(bn)"][$count], 
-    ':name(en)'  => $_POST["name(en)"][$count],
+    ':emp_ID	'  => $_POST["emp_ID"][$count], 
+    ':name_bn' => $_POST["name_bn"][$count], 
+    ':name_en'  => $_POST["name_en"][$count],
     ':designation' => $_POST["designation"][$count],
     ':cell_ID' => $_POST["cell_ID"][$count],
     ':usertype' => $_POST["usertype"][$count],
-    ':password' => $_POST["password"][$count]
+    ':pwd' => $_POST["pwd"][$count]
    )
   );
  }
