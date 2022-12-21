@@ -59,8 +59,9 @@ function fill_unit_select_box2($connect)
        <th>Name(English)</th>
        <th>Designation</th>
        <th>Cell Code</th>
-       <th>User Role</th>
-       <th>Password</th>
+       <th>Designation</th>
+       <th>Cell Code</th>
+       
       </tr>
      </table>
      <button type="button" name="add" class="btn btn-success btn-sm add"><span class="glyphicon glyphicon-plus"></span></button>
@@ -73,19 +74,21 @@ function fill_unit_select_box2($connect)
  </body>
 </html>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"></script>
+
 <script>
 $(document).ready(function(){
  
  $(document).on('click', '.add', function(){
   var html = '';
   html += '<tr>';
-  html += '<td><input type="text" name="empID[]" class="form-control empID" /></td>';
-  html += '<td><input type="text" name="name(bn)[]" class="form-control name(bn)" /></td>';
-  html += '<td><input type="text" name="name(en)[]" class="form-control name(en)" /></td>';
+  html += '<td><input type="text" name="emp_ID[]" class="form-control emp_ID" /></td>';
+  html += '<td><input type="text" name="name_bn[]" class="form-control name_bn" /></td>';
+  html += '<td><input type="text" name="name_en[]" class="form-control name_bn" /></td>';
   html += '<td><select name="designation[]" class="form-control designation"><option value="">Select Unit</option><?php echo fill_unit_select_box($connect); ?></select></td>';
   html += '<td><select name="cell_ID[]" class="form-control cell_ID"><option value="">Select Unit</option><?php echo fill_unit_select_box2($connect); ?></select></td>';
   html += '<td><select name="usertype[]" class="form-control usertype"><option value="">Select Unit</option><?php echo fill_unit_select_box($connect); ?></select></td>';
-  html += '<td><input type="password" name="password[]" class="form-control password" /></td>';
+  html += '<td><input type="pwd" name="pwd[]" class="form-control pwd" /></td>';
   html += '<td><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus"></span></button></td></tr>';
   $('#item_table').append(html);
  });
@@ -97,7 +100,7 @@ $(document).ready(function(){
  $('#insert_form').on('submit', function(event){
   event.preventDefault();
   var error = '';
-  $('.empID').each(function(){
+  $('.emp_ID').each(function(){
    var count = 1;
    if($(this).val() == '')
    {
@@ -106,6 +109,27 @@ $(document).ready(function(){
    }
    count = count + 1;
   });
+
+  $('.name_bn').each(function(){
+   var count = 1;
+   if($(this).val() == '')
+   {
+    error += "<p>Enter Employee Code at "+count+" Row</p>";
+    return false;
+   }
+   count = count + 1;
+  });
+
+  $('.name_en').each(function(){
+   var count = 1;
+   if($(this).val() == '')
+   {
+    error += "<p>Enter Employee Code at "+count+" Row</p>";
+    return false;
+   }
+   count = count + 1;
+  });
+  
   
   $('.designation').each(function(){
    var count = 1;
@@ -117,15 +141,26 @@ $(document).ready(function(){
    count = count + 1;
   });
   
-  $('.password').each(function(){
+  $('.cell_ID').each(function(){
    var count = 1;
    if($(this).val() == '')
    {
-    error += "<p>Set Password at "+count+" Row</p>";
+    error += "<p>Set cell_ID at "+count+" Row</p>";
     return false;
    }
    count = count + 1;
   });
+
+  $('.pwd').each(function(){
+   var count = 1;
+   if($(this).val() == '')
+   {
+    error += "<p>Enter pwd Code at "+count+" Row</p>";
+    return false;
+   }
+   count = count + 1;
+  });
+
   var form_data = $(this).serialize();
   if(error == '')
   {
